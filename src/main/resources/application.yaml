@@ -1,0 +1,47 @@
+server:
+    port: 8082
+spring:
+    jpa:
+        show-sql: false
+        generate-ddl: false
+        database-platform: org.hibernate.dialect.Oracle10gDialect
+        hibernate:
+            ddl-auto: create  # create or update
+            use-new-id-generator-mappings: false
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    thymeleaf:
+        prefix: "classpath:/static/"
+    data:
+        mongodb:
+            host: localhost
+            port: 27018
+            username: DEMO_ADMIN
+            password: finotek1004!
+            database: demo
+    primary-datasource:
+        driver-class-name: oracle.jdbc.OracleDriver
+        url: jdbc:oracle:thin:@localhost:1522/XE
+        username: DEMO
+        password: finotek1004
+        sql-script-encoding: UTF-8
+        hikari:
+            connection-timeout: 10000
+            minimum-idle: 5
+            maximum-pool-size: 10
+            idle-timeout: 10000
+            max-lifetime: 30000
+    # TODO: data source 정보 변경
+    second-datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/DEMO?serverTimezone=UTC&characterEncoding=UTF-8
+        username: root
+        password: finotek1004
+        sql-script-encoding: UTF-8
+        hikari:
+            connection-timeout: 10000
+            minimum-idle: 5
+            maximum-pool-size: 10
+            idle-timeout: 10000
+            max-lifetime: 30000
