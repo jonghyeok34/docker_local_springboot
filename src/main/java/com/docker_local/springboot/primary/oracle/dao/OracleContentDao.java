@@ -21,11 +21,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OracleContentDao extends DbContent{
+public class OracleContentDao{
     @Id
-    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "DEMO_TEST_SEQ_NO_")
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "O_TEST_SEQ_NO")
     @Column(name = "TEST_SEQ_NO")
-    @SequenceGenerator(sequenceName="DEMO_TEST_SEQ_NO", schema="DEMO_TEST_SEQ_NO", name="DEMO_TEST_SEQ_NO_")
+    @SequenceGenerator(sequenceName="DEMO_TEST_SEQ_NO", schema="DEMO", name="O_TEST_SEQ_NO", allocationSize = 1)
     private Long id;
 
     @Column(name = "CONTENT")

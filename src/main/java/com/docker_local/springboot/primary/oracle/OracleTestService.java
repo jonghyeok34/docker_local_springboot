@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OracleTestService implements DbService{
+public class OracleTestService{
 
     @Autowired
     OracleContentDaoRepository repo;
 
-    @Override
     public void add(String content) {
         
         OracleContentDao contentDao = new OracleContentDao();
@@ -26,7 +25,6 @@ public class OracleTestService implements DbService{
         
     }
 
-    @Override
     public void delete(Long id) {
         
         OracleContentDao contentDao = repo.findById(id).get();
@@ -34,7 +32,6 @@ public class OracleTestService implements DbService{
         
     }
 
-    @Override
     public void update(Long id, String content) {
         OracleContentDao contentDao = repo.findById(id).get();
         contentDao.setContent(content);
@@ -42,15 +39,13 @@ public class OracleTestService implements DbService{
         
     }
 
-    @Override
-    public DbContent get(Long id) {
+    public OracleContentDao get(Long id) {
         OracleContentDao contentDao = repo.findById(id).get();
         return contentDao;
     }
 
-    @Override
-    public List<DbContent> getAll() {
-        List<DbContent> dbContents =  new ArrayList<DbContent>();
+    public List<OracleContentDao> getAll() {
+        List<OracleContentDao> dbContents =  new ArrayList<OracleContentDao>();
         repo.findAll().iterator().forEachRemaining(dbContents::add);
         return dbContents;
     }

@@ -5,4 +5,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'docker-local-springboot'
+rootProject.name = 'docker_local_springboot'

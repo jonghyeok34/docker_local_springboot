@@ -1,4 +1,4 @@
-db.createUser({user: 'DEMO', pwd: 'finotek1004!', roles:[{"role": 'dbOwner', "db": 'demo'}] });
+db.createUser({user: 'DEMO', pwd: 'test1004!', roles:[{"role": 'dbOwner', "db": 'demo'}] });
 
 // db.createCollection("access_token")
 // expire 저장

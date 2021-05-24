@@ -20,7 +20,7 @@ services:
     environment:
       - LC_ALL=C.UTF-8
       - MYSQL_DATABASE=DEMO
-      - MYSQL_ROOT_PASSWORD=finotek1004
+      - MYSQL_ROOT_PASSWORD=test1004
     ports:
       - "3306:3306"
   mongodb:
@@ -31,7 +31,7 @@ services:
     image: demo/mongo:3.6
     environment:
       - MONGO_INITDB_ROOT_USERNAME=DEMO_ADMIN
-      - MONGO_INITDB_ROOT_PASSWORD=finotek1004!
+      - MONGO_INITDB_ROOT_PASSWORD=test1004!
       - MONGO_INITDB_DATABASE=demo
     ports:
       - "27018:27017"

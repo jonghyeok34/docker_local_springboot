@@ -53,7 +53,7 @@ public class MongoConfig {
     @Bean
     public MongoTemplate mongoTemplate() throws UnknownHostException {
         MongoDatabaseFactory mongoDatabaseFactory = new SimpleMongoClientDatabaseFactory(loggingClient(), database);
-        return new MongoTemplate(mongoDatabaseFactory, mappingMongoConverter());
+        return new MongoTemplate(mongoDatabaseFactory);
     }
 
     @WritingConverter
@@ -81,8 +81,8 @@ public class MongoConfig {
         MongoDatabaseFactory mongoDatabaseFactory = new SimpleMongoClientDatabaseFactory(loggingClient(), database);
         DefaultDbRefResolver dbRefResolver = new DefaultDbRefResolver(mongoDatabaseFactory);
         MappingMongoConverter converter = new MappingMongoConverter(dbRefResolver, mongoMappingContext);
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        converter.afterPropertiesSet();
+        // converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        // converter.afterPropertiesSet();
         return converter;
     }
 

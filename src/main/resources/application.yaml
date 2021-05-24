@@ -4,7 +4,7 @@ spring:
     jpa:
         show-sql: false
         generate-ddl: false
-        database-platform: org.hibernate.dialect.Oracle10gDialect
+        # database-platform: org.hibernate.dialect.Oracle10gDialect
         hibernate:
             ddl-auto: create  # create or update
             use-new-id-generator-mappings: false
@@ -17,14 +17,14 @@ spring:
         mongodb:
             host: localhost
             port: 27018
-            username: DEMO_ADMIN
-            password: finotek1004!
+            username: DEMO
+            password: test1004!
             database: demo
     primary-datasource:
         driver-class-name: oracle.jdbc.OracleDriver
         url: jdbc:oracle:thin:@localhost:1522/XE
         username: DEMO
-        password: finotek1004
+        password: test1004
         sql-script-encoding: UTF-8
         hikari:
             connection-timeout: 10000
@@ -37,7 +37,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/DEMO?serverTimezone=UTC&characterEncoding=UTF-8
         username: root
-        password: finotek1004
+        password: test1004
         sql-script-encoding: UTF-8
         hikari:
             connection-timeout: 10000
