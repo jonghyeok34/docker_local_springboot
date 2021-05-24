@@ -1,4 +1,4 @@
-package com.docker_local.springboot.controllers;
+package com.docker_local.springboot.primary.db_test;
 
 import java.util.Map;
 
