@@ -1,0 +1,33 @@
+spring:
+    data:
+        mongodb:
+            host: demo_mongodb
+            port: 27017
+            username: DEMO
+            password: test1004!
+            database: demo
+    primary-datasource:
+        driver-class-name: oracle.jdbc.OracleDriver
+        url: jdbc:oracle:thin:@demo_oracle:1521/XE
+        username: DEMO
+        password: test1004
+        sql-script-encoding: UTF-8
+        hikari:
+            connection-timeout: 10000
+            minimum-idle: 5
+            maximum-pool-size: 10
+            idle-timeout: 10000
+            max-lifetime: 30000
+    # TODO: data source 정보 변경
+    second-datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://demo_mysql:3306/DEMO?serverTimezone=UTC&characterEncoding=UTF-8
+        username: root
+        password: test1004
+        sql-script-encoding: UTF-8
+        hikari:
+            connection-timeout: 10000
+            minimum-idle: 5
+            maximum-pool-size: 10
+            idle-timeout: 10000
+            max-lifetime: 30000
