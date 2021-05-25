@@ -60,14 +60,6 @@ export default {
       if (type === "oracle") api = oracleApi;
       return api;
     }
-    // currentData: {
-    //   set(data) {
-    //     this.$parent.currentData[this.type] = data;
-    //   },
-    //   get() {
-    //     return this.$parent.currentData[this.type];
-    //   }
-    // }
   },
   methods: {
     changeUpdatable(item) {
@@ -98,17 +90,6 @@ export default {
       await api.post("/delete", data);
       await this.setCurrentData(this.type);
     }
-    // async setCurrentData(key) {
-    //   this.$parent.setCurrentData(key);
-    //   //   console.log(2);
-    //   //   const api = await this.getApiByType(key);
-    //   //   const res = await api.get("/all");
-    //   //   this.currentData = [];
-    //   //   for (const item of res.data) {
-    //   //     item.updatable = false;
-    //   //     this.currentData.push(item);
-    //   //   }
-    // }
   }
 };
 </script>

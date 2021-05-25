@@ -15,21 +15,10 @@
             :item="item"
             :setCurrentData="setCurrentData"
           ></data-card>
-          <v-card>
-            <v-card-text>
-              <v-text-field
-                name="name"
-                label="입력값"
-                id="id"
-                v-model="inputData.oracle"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn text color="teal accent-4" @click="addItem('oracle')">
-                추가
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <input-data-card
+            type="oracle"
+            :setCurrentData="setCurrentData"
+          ></input-data-card>
         </v-card-text>
       </v-card>
       <v-card class="mb-5" flat>
@@ -43,21 +32,10 @@
             :item="item"
             :setCurrentData="setCurrentData"
           ></data-card>
-          <v-card>
-            <v-card-text>
-              <v-text-field
-                name="name"
-                label="입력값"
-                id="id"
-                v-model="inputData.mysql"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn text color="teal accent-4" @click="addItem('mysql')">
-                추가
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <input-data-card
+            type="mysql"
+            :setCurrentData="setCurrentData"
+          ></input-data-card>
         </v-card-text>
       </v-card>
       <v-card class="mb-5" flat>
@@ -72,21 +50,10 @@
             :setCurrentData="setCurrentData"
           ></data-card>
 
-          <v-card>
-            <v-card-text>
-              <v-text-field
-                name="name"
-                label="입력값"
-                id="id"
-                v-model="inputData.mongo"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn text color="teal accent-4" @click="addItem('mongo')">
-                추가
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <input-data-card
+            type="mongo"
+            :setCurrentData="setCurrentData"
+          ></input-data-card>
         </v-card-text>
       </v-card>
     </v-container>
@@ -97,9 +64,10 @@
 // import axios from "axios";
 import { mongoApi, oracleApi, mysqlApi } from "@/apis";
 import DataCard from "./components/DataCard.vue";
+import InputDataCard from "./components/InputDataCard.vue";
 
 export default {
-  components: { DataCard },
+  components: { DataCard, InputDataCard },
   data() {
     return {
       inputData: {
@@ -115,32 +83,16 @@ export default {
     };
   },
   methods: {
-    // getAll() {
-    //   var api;
-
-    // }
     async addItem(type) {
       const api = await this.getApiByType(type);
-
       const data = {
         content: this.inputData[type]
       };
       await api.post("/add", data);
       this.setCurrentData(type);
-      // const res = await api.get("/all");
-      // this.currentData[type] = res.data;
     },
-    // changeUpdatable(item) {
-    //   if (item.updatable === undefined) {
-    //     item.updatable = true;
-    //   } else {
-    //     item.updatable = !item.updatable;
-    //   }
-    //   console.log(item.updatable);
-    // },
     async updateItem(type, id, content) {
       const api = await this.getApiByType(type);
-
       const data = {
         id: id,
         content: content
@@ -151,7 +103,6 @@ export default {
       this.currentData[type] = res.data;
     },
     async getApiByType(type) {
-      console.log(type);
       var api;
       if (type === "mongo") api = mongoApi;
       if (type === "mysql") api = mysqlApi;
