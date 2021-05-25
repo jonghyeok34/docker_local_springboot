@@ -3,8 +3,6 @@ package com.docker_local.springboot.primary.oracle;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.docker_local.springboot.primary.db_test.DbService;
-import com.docker_local.springboot.primary.db_test.dto.DbContent;
 import com.docker_local.springboot.primary.oracle.dao.OracleContentDao;
 import com.docker_local.springboot.primary.oracle.repository.OracleContentDaoRepository;
 

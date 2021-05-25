@@ -3,7 +3,6 @@ package com.docker_local.springboot.primary.mongo_test;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.docker_local.springboot.primary.db_test.dto.DbMongoContent;
 import com.docker_local.springboot.primary.mongo_test.dao.MongoContentDao;
 import com.docker_local.springboot.primary.mongo_test.repository.MongoContentDaoRepository;
 

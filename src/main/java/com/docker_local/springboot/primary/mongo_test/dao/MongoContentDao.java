@@ -2,7 +2,6 @@ package com.docker_local.springboot.primary.mongo_test.dao;
 
 import javax.persistence.Id;
 
-import com.docker_local.springboot.primary.db_test.dto.DbMongoContent;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
