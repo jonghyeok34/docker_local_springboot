@@ -33,5 +33,19 @@ public class OracleRestController {
         service.add(map.get("content"));
         return "success";
     }
+
+    @PostMapping("/update")
+    public String update( @RequestBody Map<String, String> map){
+    
+        service.update(Long.parseLong(map.get("id")), map.get("content"));
+        return "success";
+    }
+
+    @PostMapping("/delete")
+    public String delete( @RequestBody Map<String, String> map){
+    
+        service.delete(Long.parseLong(map.get("id")));
+        return "success";
+    }
     
 }

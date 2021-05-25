@@ -41,4 +41,11 @@ public class MongoRestController {
         service.update(map.get("id"), map.get("content"));
         return "success";
     }
+
+    @PostMapping("/delete")
+    public String delete( @RequestBody Map<String, String> map){
+    
+        service.delete(map.get("id"));
+        return "success";
+    }
 }

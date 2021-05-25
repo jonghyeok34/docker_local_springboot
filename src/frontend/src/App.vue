@@ -7,22 +7,14 @@
       <v-card class="mb-5" flat>
         <v-card-title>ORACLE</v-card-title>
         <v-card-text>
-          <v-card
+          <data-card
+            type="oracle"
             class="mb-3"
             v-for="item in currentData['oracle']"
             :key="item.id"
-          >
-            <v-card-title>{{ item.content }} </v-card-title>
-            <v-card-text></v-card-text>
-            <v-card-actions class="pt-0">
-              <!-- <v-btn text color="red accent-4">
-                삭제
-              </v-btn>
-              <v-btn text color="teal accent-4">
-                수정
-              </v-btn> -->
-            </v-card-actions>
-          </v-card>
+            :item="item"
+            :setCurrentData="setCurrentData"
+          ></data-card>
           <v-card>
             <v-card-text>
               <v-text-field
@@ -43,22 +35,14 @@
       <v-card class="mb-5" flat>
         <v-card-title>MYSQL</v-card-title>
         <v-card-text>
-          <v-card
+          <data-card
+            type="mysql"
             class="mb-3"
             v-for="item in currentData['mysql']"
             :key="item.id"
-          >
-            <v-card-title>{{ item.content }} </v-card-title>
-            <v-card-text></v-card-text>
-            <v-card-actions class="pt-0">
-              <!-- <v-btn text color="red accent-4">
-                삭제
-              </v-btn>
-              <v-btn text color="teal accent-4">
-                수정
-              </v-btn> -->
-            </v-card-actions>
-          </v-card>
+            :item="item"
+            :setCurrentData="setCurrentData"
+          ></data-card>
           <v-card>
             <v-card-text>
               <v-text-field
@@ -79,26 +63,15 @@
       <v-card class="mb-5" flat>
         <v-card-title>MONGODB</v-card-title>
         <v-card-text>
-          <v-card
+          <data-card
+            type="mongo"
             class="mb-3"
             v-for="item in currentData['mongo']"
             :key="item.id"
-          >
-            <v-card-title>{{ item.content }} </v-card-title>
-            <v-card-text></v-card-text>
-            <v-card-actions class="pt-0">
-              <!-- <v-btn text color="red accent-4">
-                삭제
-              </v-btn>
-              <v-btn
-                text
-                color="teal accent-4"
-                @click="updateItem('mongo', item.id, item.content)"
-              >
-                수정
-              </v-btn> -->
-            </v-card-actions>
-          </v-card>
+            :item="item"
+            :setCurrentData="setCurrentData"
+          ></data-card>
+
           <v-card>
             <v-card-text>
               <v-text-field
@@ -121,42 +94,12 @@
 </template>
 
 <script>
-import axios from "axios";
-
-export function setInterceptors(instance) {
-  instance.interceptors.request.use(
-    function(config) {
-      config.headers["Access-Control-Allow-Origin"] = "*";
-      return config;
-    },
-    function(error) {
-      return Promise.reject(error);
-    }
-  );
-
-  instance.interceptors.response.use(
-    function(response) {
-      return response;
-    },
-    function(error) {
-      return Promise.reject(error);
-    }
-  );
-  return instance;
-}
-
-function createInstance(url) {
-  return setInterceptors(
-    axios.create({
-      baseURL: `${process.env.VUE_APP_API_URL}${url}`
-    })
-  );
-}
-const mongoApi = createInstance("/mongo");
-const oracleApi = createInstance("/oracle");
-const mysqlApi = createInstance("/mysql");
+// import axios from "axios";
+import { mongoApi, oracleApi, mysqlApi } from "@/apis";
+import DataCard from "./components/DataCard.vue";
 
 export default {
+  components: { DataCard },
   data() {
     return {
       inputData: {
@@ -182,11 +125,19 @@ export default {
       const data = {
         content: this.inputData[type]
       };
-      console.log(data);
       await api.post("/add", data);
-      const res = await api.get("/all");
-      this.currentData[type] = res.data;
+      this.setCurrentData(type);
+      // const res = await api.get("/all");
+      // this.currentData[type] = res.data;
     },
+    // changeUpdatable(item) {
+    //   if (item.updatable === undefined) {
+    //     item.updatable = true;
+    //   } else {
+    //     item.updatable = !item.updatable;
+    //   }
+    //   console.log(item.updatable);
+    // },
     async updateItem(type, id, content) {
       const api = await this.getApiByType(type);
 
@@ -200,19 +151,29 @@ export default {
       this.currentData[type] = res.data;
     },
     async getApiByType(type) {
+      console.log(type);
       var api;
       if (type === "mongo") api = mongoApi;
       if (type === "mysql") api = mysqlApi;
       if (type === "oracle") api = oracleApi;
       return api;
+    },
+    async setCurrentData(key) {
+      const api = await this.getApiByType(key);
+      const res = await api.get("/all");
+      this.currentData[key] = [];
+      for (const item of res.data) {
+        item.updatable = false;
+        this.currentData[key].push(item);
+      }
     }
   },
   async created() {
     const arr = ["mongo", "mysql", "oracle"];
-    arr.forEach(key => {
-      var api = this.getApiByType(key);
-      this.currentData[key] = api.get("/all");
-    });
+
+    for (const key of arr) {
+      this.setCurrentData(key);
+    }
   }
 };
 </script>
