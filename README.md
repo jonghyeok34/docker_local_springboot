@@ -1,48 +1,6 @@
 # Docker
-## 1. build
-- Dockerfile
-```Dockerfile
-FROM gradle:7.0.2-jdk8 AS build
-# copy build.gradle, settings.gradle, src
-COPY build.gradle .
-COPY settings.gradle .
-COPY src src
 
-# gradle boot jar
-ARG ENVIRONMENT
-RUN gradle -Pprofile=${ENVIRONMENT} bootjar
-
-
-FROM openjdk:8-jre-slim
-
-# set system environments
-ARG ENVIRONMENT
-ENV SPRING_PROFILES_ACTIVE=${ENVIRONMENT}
-ENV SYSTEM_ENV=${ENVIRONMENT}
-
-# expose 8082
-EXPOSE 8082
-
-RUN mkdir /app
-
-# excute java & run spring boot by jar
-COPY --from=build /home/gradle/build/libs/*.jar /app/spring-boot-application.jar
-
-ENTRYPOINT ["java", "-Doracle.jdbc.timezoneAsRegion=false", "-Dfile.encoding=UTF-8", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
-```
-
-- build image
-```
-docker build --build-arg ENVIRONMENT=dev -t test-spring-build:dev .
-```
-- image
-
-```cmd
-REPOSITORY                                                           TAG       IMAGE ID       CREATED          SIZE
-test-spring-build                                                    dev       28fad1846c1b   8 minutes ago    238MB
-```
-
-## 2. docker-compose
+## 0. DB 올리기: docker-compose
 ### 파일: docker-compose 
 
 ```yml
@@ -93,7 +51,98 @@ docker-compose up -d --build
 docker-compose down
 ```
 
+## 1. 로컬 개발 하기
+### 구조.
+![a](documents/images/1_1_structure.jpg)
 
+### 로컬에서 run spring boot(vs code)
+![a](documents/images/2_extension.PNG)
+
+- 
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SpringbootApplication<docker_local_springboot>",
+            "request": "launch",
+            "env":{
+               "SPRING_PROFILES_ACTIVE": "local" 
+            },
+            "mainClass": "com.docker_local.springboot.SpringbootApplication",
+            "projectName": "docker_local_springboot"
+        }
+    ]
+}
+```
+
+![a](documents/images/3_execute.PNG)
+
+### 프론트 엔드 올리기
+
+```
+cd src/frontend
+npm run serve
+```
+
+
+
+## 2. 개발 서버 개발하기 - build
+
+- build docker 개발 구조  
+![a](documents/images/1_2_structure.jpg)
+
+- Dockerfile
+```Dockerfile
+FROM gradle:7.0.2-jdk8 AS build
+# copy build.gradle, settings.gradle, src
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+
+# gradle boot jar
+ARG ENVIRONMENT
+RUN gradle -Pprofile=${ENVIRONMENT} bootjar
+
+
+FROM openjdk:8-jre-slim
+
+# set system environments
+ARG ENVIRONMENT
+ENV SPRING_PROFILES_ACTIVE=${ENVIRONMENT}
+ENV SYSTEM_ENV=${ENVIRONMENT}
+
+# expose 8082
+EXPOSE 8082
+
+RUN mkdir /app
+
+# excute java & run spring boot by jar
+COPY --from=build /home/gradle/build/libs/*.jar /app/spring-boot-application.jar
+
+ENTRYPOINT ["java", "-Doracle.jdbc.timezoneAsRegion=false", "-Dfile.encoding=UTF-8", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/spring-boot-application.jar"]
+```
+
+- build image
+```
+docker build --build-arg ENVIRONMENT=dev -t test-spring-build:dev .
+```
+- image
+
+```cmd
+REPOSITORY                                                           TAG       IMAGE ID       CREATED          SIZE
+test-spring-build                                                    dev       28fad1846c1b   8 minutes ago    238MB
+```
 ## 3. docker run ( -p, --link )
 
 - docker ps
