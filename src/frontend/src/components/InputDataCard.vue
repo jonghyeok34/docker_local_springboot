@@ -17,35 +17,22 @@
 </template>
 
 <script>
-import { mongoApi, mysqlApi, oracleApi } from "@/apis";
 export default {
   props: {
-    type: String,
-    setCurrentData: Function
+    type: String
   },
   data() {
     return {
       inputData: null
     };
   },
-  computed: {
-    baseApi() {
-      const type = this.type;
-      var api;
-      if (type === "mongo") api = mongoApi;
-      if (type === "mysql") api = mysqlApi;
-      if (type === "oracle") api = oracleApi;
-      return api;
-    }
-  },
   methods: {
     async addItem() {
-      const api = this.baseApi;
       const data = {
+        type: this.type,
         content: this.inputData
       };
-      await api.post("/add", data);
-      this.setCurrentData(this.type);
+      this.$store.dispatch("addItem", data);
     }
   }
 };

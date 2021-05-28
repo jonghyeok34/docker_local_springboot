@@ -38,28 +38,14 @@
 
 <script>
 // import axios from "axios";
-import { mongoApi, mysqlApi, oracleApi } from "@/apis";
 
 export default {
   props: {
     item: Object,
-    type: String,
-    setCurrentData: Function
+    type: String
   },
   data() {
-    return {
-      currentData: []
-    };
-  },
-  computed: {
-    baseApi() {
-      const type = this.type;
-      var api;
-      if (type === "mongo") api = mongoApi;
-      if (type === "mysql") api = mysqlApi;
-      if (type === "oracle") api = oracleApi;
-      return api;
-    }
+    return {};
   },
   methods: {
     changeUpdatable(item) {
@@ -68,27 +54,16 @@ export default {
       } else {
         item.updatable = !item.updatable;
       }
-      console.log(item.updatable);
     },
     async updateItem(type, id, content) {
-      console.log(1);
-      const api = this.baseApi;
-
-      const data = {
+      this.$store.dispatch("updateItem", {
+        type: type,
         id: id,
         content: content
-      };
-      await api.post("/update", data);
-      await this.setCurrentData(type);
+      });
     },
     async deleteItem(id) {
-      const api = this.baseApi;
-
-      const data = {
-        id: id
-      };
-      await api.post("/delete", data);
-      await this.setCurrentData(this.type);
+      await this.$store.dispatch("deleteItem", { type: this.type, id: id });
     }
   }
 };
