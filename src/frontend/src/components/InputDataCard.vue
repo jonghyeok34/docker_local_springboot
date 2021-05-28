@@ -33,6 +33,7 @@ export default {
         content: this.inputData
       };
       this.$store.dispatch("addItem", data);
+      this.inputData = null;
     }
   }
 };

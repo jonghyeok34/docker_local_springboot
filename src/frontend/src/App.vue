@@ -15,36 +15,10 @@
 </template>
 
 <script>
-// import axios from "axios";
-import { mongoApi, oracleApi, mysqlApi } from "@/apis";
 import MainContentCard from "./components/main/MainContentCard.vue";
 
 export default {
   components: { MainContentCard },
-  data() {
-    return {
-      inputData: {
-        mongo: null,
-        mysql: null,
-        oracle: null
-      },
-      apis: {
-        mongo: mongoApi,
-        mysql: mysqlApi,
-        oracle: oracleApi
-      }
-    };
-  },
-  computed: {
-    currentData() {
-      return this.$store.state.currentData;
-    }
-  },
-  methods: {
-    async setCurrentData(key) {
-      await this.$store.dispatch("setCurrentData", key);
-    }
-  },
   async created() {
     this.$store.dispatch("resetCurrentData");
   }
