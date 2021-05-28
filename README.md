@@ -1,6 +1,9 @@
 # Docker
 
-## 0. DB 올리기: docker-compose
+## 1. 로컬 개발 하기
+## 1-0. 구조.
+![a](documents/images/1_1_structure.jpg)
+## 1-1. DB 올리기: docker-compose
 ### 파일: docker-compose 
 
 ```yml
@@ -51,19 +54,14 @@ docker-compose up -d --build
 docker-compose down
 ```
 
-## 1. 로컬 개발 하기
-### 구조.
-![a](documents/images/1_1_structure.jpg)
-
+## 1-2. vscode 설정 
 ### 로컬에서 run spring boot(vs code)
 ![a](documents/images/2_extension.PNG)
 
-- 
+- .vscode/launch.json
 ```json
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    
     "version": "0.2.0",
     "configurations": [
         {
@@ -88,17 +86,30 @@ docker-compose down
 
 ![a](documents/images/3_execute.png)
 
-### 프론트 엔드 올리기
-
-```
+## 1-3. 프론트 엔드 올리기
+- npm dependencies 다운로드
+```sh
 cd src/frontend
+npm install
+```
+- 로컬에서 프론트엔드 올리기
+```sh
 npm run serve
 ```
 
+## 1-4. hot reload 적용하기
+- build.gradle
+```
+dependencies {
+    ...
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    ...
+}
+```
 
 
-## 2. 개발 서버 개발하기 - build
-
+## 2. 개발서버 개발하기 (docker 이용)
+### 2-1. docker build
 - build docker 개발 구조  
 ![a](documents/images/1_2_structure.jpg)
 
@@ -143,7 +154,7 @@ docker build --build-arg ENVIRONMENT=dev -t test-spring-build:dev .
 REPOSITORY                                                           TAG       IMAGE ID       CREATED          SIZE
 test-spring-build                                                    dev       28fad1846c1b   8 minutes ago    238MB
 ```
-## 3. docker run ( -p, --link )
+### 2-2.  docker run ( -p, --link )
 
 - docker ps
 ```
