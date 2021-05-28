@@ -20,6 +20,14 @@ spring:
             maximum-pool-size: 10
             idle-timeout: 10000
             max-lifetime: 30000
+        jpa:
+            properties:
+                hibernate:
+                    show-sql: true
+                    # format_sql: true
+                    # use_sql_comments: true
+                    dialect: org.hibernate.dialect.Oracle10gDialect
+                    encoding: UTF-8
     # TODO: data source 정보 변경
     second-datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -33,3 +41,12 @@ spring:
             maximum-pool-size: 10
             idle-timeout: 10000
             max-lifetime: 30000
+        jpa:
+            properties:
+                hibernate:
+                    show-sql: true
+                    # format_sql: true
+                    # use_sql_comments: true
+                    dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+                    encoding: UTF-8
+        

@@ -6,7 +6,7 @@ spring:
         generate-ddl: false
         # database-platform: org.hibernate.dialect.Oracle10gDialect
         hibernate:
-            # ddl-auto: create  # create or update
+            ddl-auto: none  # create or update
             use-new-id-generator-mappings: false
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
