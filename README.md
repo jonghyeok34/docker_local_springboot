@@ -3,8 +3,33 @@
 ## 1. 로컬 개발 하기
 ## 1-0. 구조.
 ![a](documents/images/1_1_structure.jpg)
-## 1-1. DB 올리기: docker-compose
-### 파일: docker-compose 
+## 1-1. DB 올리기
+### 1-1-0 - docker run
+- git bash에서 실행(mysql)
+```
+cd/mysql
+./build.sh
+```
+- db/mysql/build.sh
+```
+docker stop demo_mysql
+docker rm demo_mysql
+docker build -t demo/mysql:5.7 .
+docker run -i -d -p 3306:3306 --name demo_mysql \
+--env-file=env.conf \
+demo/mysql:5.7
+
+```
+- db/mysql/env.conf
+```
+LC_ALL=C.UTF-8
+MYSQL_DATABASE=DEMO
+MYSQL_ROOT_PASSWORD=test1004
+character-set-server=utf8
+collation-server=utf8_general_ci
+```
+
+### 1-1-1 : docker-compose 
 
 ```yml
 version: "3.3"
