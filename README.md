@@ -86,7 +86,7 @@ docker-compose down
 }
 ```
 
-![a](documents/images/3_execute.PNG)
+![a](documents/images/3_execute.png)
 
 ### 프론트 엔드 올리기
 
