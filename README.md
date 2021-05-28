@@ -21,12 +21,42 @@ demo/mysql:5.7
 
 ```
 - db/mysql/env.conf
-```
+```conf
 LC_ALL=C.UTF-8
 MYSQL_DATABASE=DEMO
 MYSQL_ROOT_PASSWORD=test1004
 character-set-server=utf8
 collation-server=utf8_general_ci
+```
+
+- db/oracle/build.sh
+```
+docker stop demo_oracle
+docker rm demo_oracle
+docker build -t demo/oracle-xe-11g:latest .
+docker run -i -d -p 1522:1521 --name demo_oracle \
+--env-file=env.conf \
+demo/oracle-xe-11g:latest
+
+```
+- db/oracle/env.conf
+```conf
+ORACLE_ALLOW_REMOTE=true
+```
+- db/mongodb/build.sh
+```
+docker stop demo_mongodb
+docker rm demo_mongodb
+docker build -t demo/mongo:3.6 .
+docker run -i -d -p 27018:27017 --name demo_mongodb \
+--env-file=env.conf \
+demo/mongo:3.6
+```
+- db/mongodb/env.conf
+```conf
+MONGO_INITDB_ROOT_USERNAME=DEMO_ADMIN
+MONGO_INITDB_ROOT_PASSWORD=test1004!
+MONGO_INITDB_DATABASE=demo
 ```
 
 ### 1-1-1 : docker-compose 
