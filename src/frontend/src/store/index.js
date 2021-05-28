@@ -5,11 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    inputData: {
-      mongo: null,
-      mysql: null,
-      oracle: null
-    },
+    // inputData: {
+    //   mongo: null,
+    //   mysql: null,
+    //   oracle: null
+    // },
     currentData: {
       mongo: [],
       mysql: [],
@@ -39,7 +39,6 @@ export default new Vuex.Store({
         id: id,
         content: content
       };
-      console.log(reqData);
       await api.post("/update", reqData);
       dispatch("setCurrentData", type);
     },
